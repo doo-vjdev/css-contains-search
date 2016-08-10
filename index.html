@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html class=" is-copy-enabled" lang="en">
+	<head>
+		<title>CSS :contains selector example</title>
+		<style>
+			.container {
+				width:96%;
+				margin:1%;
+				padding:1%;
+				overflow:hidden;
+			}
+
+			[name="search"] {
+				width:auto;
+				margin:5px;
+			}
+
+			.category-item {
+				height:30px;
+				margin:5px;
+				border:1px solid black;
+				width:40%;
+				border-radius: 4px;
+				padding:8px;
+			}
+		</style>
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('[name="search"]').bind('keyup', function() {
+					var search = $(this).val();
+					if (!search) {
+					    $('.category-item').show();
+					    return;
+					}
+					$('.category-item').hide();
+					$('.category-item:Contains("'+search+'")').map(function(val){
+						$(this).show();
+					});
+				});
+			});
+			jQuery.expr[':'].Contains = function(a, i, m) {
+			  	return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+			};
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<input type="text" name="search" placeholder="Search"/>
+			<div class="list">
+				<div class="category-item">Category</div>
+				<div class="category-item">Name</div>
+				<div class="category-item">Firstname</div>
+				<div class="category-item">Email</div>
+				<div class="category-item">Address</div>
+				<div class="category-item">City</div>
+				<div class="category-item">Country</div>
+				<div class="category-item">Lastname</div>
+				<div class="category-item">Custom Field</div>
+			</div>
+		</div>
+	</body>
+</html>
